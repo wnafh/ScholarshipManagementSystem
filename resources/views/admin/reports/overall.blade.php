@@ -35,30 +35,6 @@
             </div>
         </div>
         
-        <div class="bg-white rounded-lg shadow p-6">
-            <h3 class="text-lg font-semibold mb-4 text-teal-600">Quick Stats</h3>
-            <div class="space-y-3">
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Acceptance Rate:</span>
-                    <span class="font-bold">
-                        @if($totalApplications > 0)
-                            {{ round(($approvedApplications / $totalApplications) * 100, 1) }}%
-                        @else
-                            0%
-                        @endif
-                    </span>
-                </div>
-                <div class="flex justify-between">
-                    <span class="text-gray-600">Average Award:</span>
-                    <span class="font-bold">
-                        @if($totalScholarships > 0)
-                            {{ number_format($totalAmount / $totalScholarships, 2) }}
-                        @else
-                            0.00
-                        @endif
-                    </span>
-                </div>
-            </div>
-        </div>
+        
     </div>
 </x-admin-layout>
