@@ -12,7 +12,7 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Scholarship</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Review Date</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Result</th>
-                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Feedback / Letter</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Feedback</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
@@ -32,7 +32,7 @@
                         </td>
                         <td class="px-6 py-4">
                             @if($result->status == 'approved')
-                                <a href="#" class="text-teal-600 hover:text-teal-900 text-sm">Download Award Letter</a>
+                                <span class="text-sm text-green-600">Congratulations!</span>
                             @elseif($result->status == 'rejected' && $result->feedback)
                                 <span class="text-sm text-gray-600">{{ Str::limit($result->feedback, 60) }}</span>
                             @elseif($result->status == 'rejected')
