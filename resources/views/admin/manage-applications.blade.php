@@ -1,11 +1,11 @@
 <x-admin-layout>
     <div class="mb-6">
         <h1 class="text-3xl font-bold text-gray-800">MANAGE APPLICATIONS</h1>
-        <p class="text-gray-600 mt-1">Review and assign applications to reviewers</p>
+        <p class="text-gray-600 mt-1">Review, assign, and approve/reject applications</p>
     </div>
     
     <div class="bg-white rounded-lg shadow p-4 mb-6">
-        <form method="GET" action="{{ route('admin.applications.index') }}" class="flex gap-4">
+        <form method="GET" action="{{ route('admin.applications.index') }}" class="flex gap-4 flex-wrap">
             <input type="text" name="search" placeholder="Search by Student Name or Scholarship" value="{{ request('search') }}" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500">
             <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-teal-500 focus:border-teal-500">
                 <option value="">All Status</option>
@@ -62,10 +62,29 @@
                             </span>
                         </td>
                         <td class="px-6 py-4">
-                            @if(!$app->reviewer_id && $app->status == 'pending')
+                            @if($app->status == 'pending')
                                 <a href="{{ route('admin.applications.assign', $app->id) }}" class="text-teal-600 hover:text-teal-900">Assign</a>
-                            @elseif($app->reviewer_id && $app->status == 'assigned')
+                            
+                            @elseif($app->status == 'reviewed')
+                                <div class="flex gap-2">
+                                    <form action="{{ route('admin.applications.approve', $app->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Approve this application?')">
+                                            Approve
+                                        </button>
+                                    </form>
+                                    <form action="{{ route('admin.applications.reject', $app->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs" onclick="return confirm('Reject this application?')">
+                                            Reject
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('admin.applications.show', $app->id) }}" class="text-teal-600 hover:text-teal-900">View</a>
+                                </div>
+                            
+                            @elseif($app->status == 'assigned')
                                 <span class="text-gray-400">Waiting for Review</span>
+                            
                             @else
                                 <a href="{{ route('admin.applications.show', $app->id) }}" class="text-teal-600 hover:text-teal-900">View</a>
                             @endif

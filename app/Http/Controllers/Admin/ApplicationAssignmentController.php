@@ -74,6 +74,38 @@ class ApplicationAssignmentController extends Controller
                          ->with('success', 'Reviewer assigned successfully!');
     }
     
+    public function approve($id)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+        
+        $application = Application::findOrFail($id);
+        
+        $application->update([
+            'status' => 'approved',
+        ]);
+        
+        return redirect()->route('admin.applications.index')
+                         ->with('success', 'Application approved successfully!');
+    }
+    
+    public function reject($id)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+        
+        $application = Application::findOrFail($id);
+        
+        $application->update([
+            'status' => 'rejected',
+        ]);
+        
+        return redirect()->route('admin.applications.index')
+                         ->with('success', 'Application rejected successfully!');
+    }
+    
     public function show($id)
     {
         if (auth()->user()->role !== 'admin') {

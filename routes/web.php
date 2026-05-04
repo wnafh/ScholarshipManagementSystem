@@ -57,9 +57,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::delete('/students/{id}', [StudentController::class, 'destroy'])->name('students.destroy');
 
     Route::get('/applications', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'index'])->name('applications.index');
-Route::get('/applications/{id}/assign', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'assign'])->name('applications.assign');
-Route::post('/applications/{id}/assign-reviewer', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'assignReviewer'])->name('applications.assign-reviewer');
-Route::get('/applications/{id}', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'show'])->name('applications.show');
+    Route::get('/applications/{id}/assign', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'assign'])->name('applications.assign');
+    Route::post('/applications/{id}/assign-reviewer', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'assignReviewer'])->name('applications.assign-reviewer');
+    Route::get('/applications/{id}', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'show'])->name('applications.show');
+    Route::post('/applications/{id}/approve', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'approve'])->name('applications.approve');
+    Route::post('/applications/{id}/reject', [App\Http\Controllers\Admin\ApplicationAssignmentController::class, 'reject'])->name('applications.reject');
     
     Route::get('/reviewers', [ReviewerController::class, 'index'])->name('reviewers.index');
     Route::get('/reviewers/approve', [ReviewerController::class, 'approve'])->name('reviewers.approve');
